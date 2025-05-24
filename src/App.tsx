@@ -1,12 +1,8 @@
-import './App.css';
-import MapTest from './components/Maptest';
+import { RouterProvider } from "react-router";
+import router from "./router";
 
 function App() {
-  return (
-    <>
-      <MapTest />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
