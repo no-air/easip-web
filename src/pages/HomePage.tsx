@@ -6,7 +6,7 @@ import { formatDate } from "../util/date";
 import { Fragment, useState } from "react";
 import { Controller } from "swiper/modules";
 
-const MainPage = () => {
+const HomePage = () => {
   const { data } = usePostHomeQuery();
   const [imageSwiper, setImageSwiper] = useState<SwiperType | null>(null);
   const [bodySwiper, setBodySwiper] = useState<SwiperType | null>(null);
@@ -104,4 +104,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default HomePage;
