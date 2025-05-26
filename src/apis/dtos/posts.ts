@@ -6,6 +6,7 @@ export interface GetPostHomeResponse {
   results: {
     postId: string;
     title: string;
+    tags: string[];
     applicationConditionDtos: applicationConditionDto[];
     houseSummaryResponses: houseSummaryResponse[];
     rentDtos: rentDto[];

@@ -15,20 +15,24 @@ const HomePage = () => {
       <h1 className="text-base font-semibold text-center border-b mb-4 border-[#CFCFCF]">
         오늘의 추천 공고
       </h1>
-      {data.pages.map((page, index) => (
-        <Fragment key={index}>
-          <ImageSwiper
-            setImageSwiper={setImageSwiper}
-            bodySwiper={bodySwiper}
-            page={page}
-          />
-          <BodySwiper
-            setBodySwiper={setBodySwiper}
-            imageSwiper={imageSwiper}
-            page={page}
-          />
-        </Fragment>
-      ))}
+      <div className="relative">
+        {data.pages.map((page, index) => (
+          <Fragment key={index}>
+            <div className="absolute top-12 left-0 right-0">
+              <ImageSwiper
+                setImageSwiper={setImageSwiper}
+                bodySwiper={bodySwiper}
+                page={page}
+              />
+            </div>
+            <BodySwiper
+              setBodySwiper={setBodySwiper}
+              imageSwiper={imageSwiper}
+              page={page}
+            />
+          </Fragment>
+        ))}
+      </div>
       <div className="h-24" />
       <div className="fixed z-10 bottom-0 left-0 right-0 flex justify-center bg-white p-3">
         <button className="py-2.5 px-20 rounded bg-[#E2E2E2] font-bold text-xs">

@@ -21,7 +21,9 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
     >
       {page.results.map(
         ({
+          tags,
           postId,
+          title,
           applicationConditionDtos,
           houseSummaryResponses,
           scheduleDtos,
@@ -30,6 +32,19 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
             className="flex flex-col gap-4 px-[calc(20px+5vw)]"
             key={postId}
           >
+            <div className="flex gap-2 flex-wrap">
+              {tags.map((tag) => (
+                <span
+                  className="px-2 rounded bg-[#2F82F4] text-white text-xs"
+                  key={tag}
+                >
+                  {tag.trim()}
+                </span>
+              ))}
+            </div>
+            <h2 className="text-lg">{title}</h2>
+            {/* placeholder image */}
+            <div className="w-full aspect-square bg-gray100 rounded-lg my-6"></div>
             <div className="flex gap-2 text-xs text-white">
               {applicationConditionDtos.map(
                 ({ content, isApplicable }) =>
