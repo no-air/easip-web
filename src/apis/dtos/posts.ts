@@ -7,9 +7,7 @@ export interface GetPostHomeResponse {
     postId: string;
     title: string;
     tags: string[];
-    applicationConditionDtos: applicationConditionDto[];
     houseSummaryResponses: houseSummaryResponse[];
-    rentDtos: rentDto[];
     scheduleDtos: scheduleDto[];
   }[];
 }
@@ -19,6 +17,8 @@ interface houseSummaryResponse {
   houseThumbnailUrl: string;
   houseName: string;
   subscriptionState: string;
+  applicationConditionDtos: applicationConditionDto[];
+  rentDtos: rentDto[];
   districtName: string;
   latitude: number;
   longitude: number;

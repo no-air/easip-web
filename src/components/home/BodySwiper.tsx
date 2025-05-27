@@ -20,14 +20,7 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
       controller={{ control: imageSwiper }}
     >
       {page.results.map(
-        ({
-          tags,
-          postId,
-          title,
-          applicationConditionDtos,
-          houseSummaryResponses,
-          scheduleDtos,
-        }) => (
+        ({ tags, postId, title, houseSummaryResponses, scheduleDtos }) => (
           <SwiperSlide
             className="flex flex-col gap-4 px-[calc(20px+5vw)]"
             key={postId}
@@ -45,16 +38,6 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
             <h2 className="text-lg">{title}</h2>
             {/* placeholder image */}
             <div className="w-full aspect-square bg-gray100 rounded-lg my-6"></div>
-            <div className="flex gap-2 text-xs text-white">
-              {applicationConditionDtos.map(
-                ({ content, isApplicable }) =>
-                  isApplicable && (
-                    <span className="px-2 rounded bg-[#2F82F4]" key={content}>
-                      {content}
-                    </span>
-                  )
-              )}
-            </div>
             <h2 className="font-semibold mb-4">
               {houseSummaryResponses[0].houseName}
             </h2>
@@ -69,6 +52,22 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
                 <span>지역</span>
                 <div className="px-2 rounded bg-[#2F82F4] text-white text-xs">
                   {houseSummaryResponses[0].districtName}
+                </div>
+              </div>
+              <div>
+                <span>지원조건</span>
+                <div className="flex gap-2 flex-wrap">
+                  {houseSummaryResponses[0].applicationConditionDtos.map(
+                    ({ content, isApplicable }) =>
+                      isApplicable && (
+                        <div
+                          className="px-2 rounded bg-[#2F82F4] text-white text-xs"
+                          key={content}
+                        >
+                          {content}
+                        </div>
+                      )
+                  )}
                 </div>
               </div>
               <div>
