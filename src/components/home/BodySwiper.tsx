@@ -2,8 +2,8 @@ import { Controller } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import type { GetPostHomeResponse } from "../../apis/dtos/posts";
-import { formatDate } from "../../util/date";
-import { cn } from "../../util/lib";
+import { formatDate } from "../../utils/date";
+import { cn } from "../../utils/lib";
 
 interface BodySwiperProps {
   setBodySwiper: (swiper: SwiperType) => void;
