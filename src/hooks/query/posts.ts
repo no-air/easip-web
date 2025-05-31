@@ -1,8 +1,15 @@
 import {
+  useMutation,
+  useQueryClient,
   useSuspenseInfiniteQuery,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { getPostById, getPostPush, getPostsHome } from "../../apis/posts";
+import {
+  getPostById,
+  getPostPush,
+  getPostsHome,
+  putPostPush,
+} from "../../apis/posts";
 
 export const usePostHomeQuery = () => {
   return useSuspenseInfiniteQuery({
@@ -27,5 +34,19 @@ export const usePostPushQuery = (postId: string) => {
   return useSuspenseQuery({
     queryKey: ["posts", postId, "push"],
     queryFn: () => getPostPush(postId),
+  });
+};
+
+export const usePostPushMutation = (postId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ scheduleId }: { scheduleId: string }) =>
+      putPostPush(postId, scheduleId),
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts", postId, "push"],
+      });
+    },
   });
 };

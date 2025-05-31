@@ -37,3 +37,14 @@ export const getPostPush = async (postId: string) => {
     method: "GET",
   }).then((response) => response.json() as Promise<PostPushResponse>);
 };
+
+export const putPostPush = async (postId: string, scheduleId: string) => {
+  return fetch(`${API_URL}/v1/posts/${postId}/push/schedules/${scheduleId}`, {
+    headers: {
+      "X-AUTH-TOKEN": await accessToken(),
+    },
+    method: "PUT",
+  }).then((response) => {
+    return response.json() as Promise<{ success: boolean }>;
+  });
+};

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { cn } from "../../utils/lib";
 import BellIcon from "../icons/Bell";
-import { usePostPushQuery } from "../../hooks/query/posts";
+import { usePostPushMutation, usePostPushQuery } from "../../hooks/query/posts";
 import { useParams } from "react-router";
 import CheckIcon from "../icons/Check";
 
@@ -18,6 +18,7 @@ const PostHeader = ({ postTitle, tags }: PostHeaderProps) => {
     throw new Error("Post ID is required");
   }
   const [bellOpen, setBellOpen] = useState(false);
+  const { mutate } = usePostPushMutation(postId);
   const { data } = usePostPushQuery(postId);
   const hasPush = data.results.some(
     (schedule) => schedule.isPushAlarmRegistered
@@ -42,12 +43,16 @@ const PostHeader = ({ postTitle, tags }: PostHeaderProps) => {
         </button>
         {bellOpen && (
           <div className="absolute top-14 right-6 py-2 px-3 rounded-xl border border-gray-700 bg-white text-sm">
-            {data.results.map(({ title, isPushAlarmRegistered }) => (
-              <div
-                className={cn("flex justify-between gap-4 items-baseline", {
-                  "text-gray-400": !isPushAlarmRegistered,
-                })}
-                key={title}
+            {data.results.map(({ id, title, isPushAlarmRegistered }) => (
+              <button
+                className={cn(
+                  "flex justify-between gap-4 items-baseline w-full",
+                  {
+                    "text-gray-400": !isPushAlarmRegistered,
+                  }
+                )}
+                key={id}
+                onClick={() => mutate({ scheduleId: id })}
               >
                 <span>{title}</span>
                 <span>
@@ -57,7 +62,7 @@ const PostHeader = ({ postTitle, tags }: PostHeaderProps) => {
                     })}
                   />
                 </span>
-              </div>
+              </button>
             ))}
           </div>
         )}
