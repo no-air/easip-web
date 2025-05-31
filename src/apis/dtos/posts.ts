@@ -19,6 +19,10 @@ export interface GetPostDetailResponse {
   postPerHouseDetailResponses: PostPerHouseDetailResponse[];
 }
 
+export interface PostPushResponse {
+  results: ScheduleDto[];
+}
+
 interface PostPerHouseDetailResponse {
   houseId: string;
   houseName: string;

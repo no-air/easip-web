@@ -2,7 +2,7 @@ import {
   useSuspenseInfiniteQuery,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { getPostById, getPostsHome } from "../../apis/posts";
+import { getPostById, getPostPush, getPostsHome } from "../../apis/posts";
 
 export const usePostHomeQuery = () => {
   return useSuspenseInfiniteQuery({
@@ -20,5 +20,12 @@ export const usePostDetailQuery = (postId: string) => {
   return useSuspenseQuery({
     queryKey: ["posts", postId],
     queryFn: () => getPostById(postId),
+  });
+};
+
+export const usePostPushQuery = (postId: string) => {
+  return useSuspenseQuery({
+    queryKey: ["posts", postId, "push"],
+    queryFn: () => getPostPush(postId),
   });
 };
