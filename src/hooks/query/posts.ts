@@ -1,5 +1,8 @@
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import { getPostsHome } from "../../apis/posts";
+import {
+  useSuspenseInfiniteQuery,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
+import { getPostById, getPostsHome } from "../../apis/posts";
 
 export const usePostHomeQuery = () => {
   return useSuspenseInfiniteQuery({
@@ -10,5 +13,12 @@ export const usePostHomeQuery = () => {
       const nextPage = allPages.length;
       return lastPage.hasNext ? nextPage : undefined;
     },
+  });
+};
+
+export const usePostDetailQuery = (postId: string) => {
+  return useSuspenseQuery({
+    queryKey: ["posts", postId],
+    queryFn: () => getPostById(postId),
   });
 };

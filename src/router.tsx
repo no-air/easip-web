@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <MapTest />,
   },
   {
-    path: "/posts/:postId",
+    path: "/post/:postId",
     element: <PostPage />,
   },
 ]);

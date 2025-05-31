@@ -38,10 +38,12 @@ const HomePage = () => {
       <div className="h-24" />
       <div className="fixed z-10 bottom-0 left-0 right-0 flex justify-center bg-white p-3">
         <button
-          className="py-2.5 px-20 rounded bg-[#E2E2E2] font-bold text-xs"
+          className="py-2.5 px-20 w-full rounded bg-[#E2E2E2] font-bold text-xs"
           onClick={() =>
             goToFlutterMove(
-              data.pages[bodySwiper?.realIndex ?? 0]?.results[0]?.postId
+              `/post/${
+                data.pages[bodySwiper?.realIndex ?? 0]?.results[0]?.postId
+              }`
             )
           }
         >
