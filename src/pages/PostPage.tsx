@@ -2,6 +2,10 @@ import { useParams } from "react-router";
 import { usePostDetailQuery } from "../hooks/query/posts";
 import { useFlutterStore } from "../stores/flutter";
 import PostHeader from "../components/post/Header";
+import ImageSwiper from "../components/post/ImageSwiper";
+import BodySwiper from "../components/post/BodySwiper";
+import type { Swiper as SwiperType } from "swiper";
+import { useState } from "react";
 
 const PostPage = () => {
   const { postId } = useParams();
@@ -10,10 +14,24 @@ const PostPage = () => {
   }
   const { data } = usePostDetailQuery(postId);
   const { goToFlutterMove } = useFlutterStore((state) => state.actions);
-
+  const [imageSwiper, setImageSwiper] = useState<SwiperType | null>(null);
+  const [bodySwiper, setBodySwiper] = useState<SwiperType | null>(null);
   return (
-    <div className="flex flex-col min-h-screen relative">
+    <main className="flex flex-col min-h-screen relative">
       <PostHeader postTitle={data.postTitle} tags={data.tags} />
+      <div className="relative">
+        <ImageSwiper
+          page={data}
+          bodySwiper={bodySwiper}
+          setImageSwiper={setImageSwiper}
+        />
+        <BodySwiper
+          setBodySwiper={setBodySwiper}
+          imageSwiper={imageSwiper}
+          page={data}
+        />
+      </div>
+      <div className="h-24" />
       <div className="fixed z-10 bottom-0 left-0 right-0 flex justify-center bg-white p-3 border-t border-gray-300">
         <button
           className="py-2.5 px-20 w-full rounded bg-[#EC4C24] font-bold text-xs text-white"
@@ -24,7 +42,7 @@ const PostPage = () => {
           지원하기
         </button>
       </div>
-    </div>
+    </main>
   );
 };
 

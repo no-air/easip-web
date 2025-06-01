@@ -25,49 +25,61 @@ const PostHeader = ({ postTitle, tags }: PostHeaderProps) => {
   );
 
   return (
-    <div className="px-8 pb-2 relative">
-      <div className="flex items-center gap-3 text-white text-xs">
-        {tags.map((tag, index) => (
-          <span className={cn("py-0.5 px-1.5 rounded", bageColors[index % 3])}>
-            {tag}
-          </span>
-        ))}
-      </div>
-      <div className="flex justify-between gap-3">
-        <h1>{postTitle}</h1>
-        <button
-          className="p-2 h-6 w-6"
-          onClick={() => setBellOpen((prev) => !prev)}
-        >
-          <BellIcon className={cn({ "fill-[#EC4C24]": hasPush })} />
-        </button>
-        {bellOpen && (
-          <div className="absolute top-14 right-6 py-2 px-3 rounded-xl border border-gray-700 bg-white text-sm">
-            {data.results.map(({ id, title, isPushAlarmRegistered }) => (
-              <button
-                className={cn(
-                  "flex justify-between gap-4 items-baseline w-full",
-                  {
-                    "text-gray-400": !isPushAlarmRegistered,
-                  }
-                )}
-                key={id}
-                onClick={() => mutate({ scheduleId: id })}
+    <>
+      <div className="h-16"></div>
+      <div className="px-8 pb-2 fixed top-0 bg-white border-b border-gray-300 w-screen z-50">
+        <div className="relative">
+          <div className="flex items-center gap-3 text-white text-xs">
+            {tags.map((tag, index) => (
+              <span
+                className={cn("py-0.5 px-1.5 rounded", bageColors[index % 3])}
               >
-                <span>{title}</span>
-                <span>
-                  <CheckIcon
-                    className={cn({
-                      "fill-gray-400": !isPushAlarmRegistered,
-                    })}
-                  />
-                </span>
-              </button>
+                {tag}
+              </span>
             ))}
           </div>
-        )}
+          <div className="flex justify-between gap-2">
+            <h1>{postTitle}</h1>
+            <button
+              className="p-2 h-8 w-8 flex items-center justify-center"
+              onClick={() => setBellOpen((prev) => !prev)}
+            >
+              <BellIcon className={cn({ "fill-[#EC4C24]": hasPush })} />
+            </button>
+            {bellOpen && (
+              <div className="absolute top-12 right-0 py-2 px-3 rounded-xl border border-gray-700 bg-white text-sm">
+                {data.results.map(({ id, title, isPushAlarmRegistered }) => (
+                  <button
+                    className={cn(
+                      "flex justify-between gap-4 items-baseline w-full",
+                      {
+                        "text-gray-400": !isPushAlarmRegistered,
+                      }
+                    )}
+                    key={id}
+                    onClick={() =>
+                      mutate(
+                        { scheduleId: id },
+                        { onSettled: () => setBellOpen(false) }
+                      )
+                    }
+                  >
+                    <span>{title}</span>
+                    <span>
+                      <CheckIcon
+                        className={cn({
+                          "fill-gray-400": !isPushAlarmRegistered,
+                        })}
+                      />
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

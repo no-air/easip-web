@@ -34,7 +34,7 @@ interface PostPerHouseDetailResponse {
   representativeStructure: string;
   representativeExclusiveArea: number;
   totalSupplyRoomCount: number;
-  applicationConditionDtos: string[];
+  applicationConditionDtos: ApplicationConditionDto[];
   scheduleDtos: ScheduleDto[];
   roomRentalConditionResponses: RoomRentalConditionResponse[];
   houseApplyUrl: string;
