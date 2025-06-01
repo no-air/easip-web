@@ -2,7 +2,8 @@ declare module "react-kakao-maps-sdk";
 
 declare global {
   interface Window {
-    kakao: unknown;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    kakao: any;
     flutter_inappwebview: {
       callHandler: (
         handlerName: string,
