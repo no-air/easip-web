@@ -12,7 +12,8 @@ declare global {
     flutter?: boolean;
   }
 
-  const kakao: unknown;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const kakao: any;
 }
 
 export {};
