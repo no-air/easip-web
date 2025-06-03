@@ -4,6 +4,8 @@ import BellIcon from "../icons/Bell";
 import { usePostPushMutation, usePostPushQuery } from "../../hooks/query/posts";
 import { useParams } from "react-router";
 import CheckIcon from "../icons/Check";
+import LeftArrowIcon from "../icons/LeftArrow";
+import { useFlutterStore } from "../../stores/flutter";
 
 interface PostHeaderProps {
   tags: string[];
@@ -20,6 +22,7 @@ const PostHeader = ({ postTitle, tags }: PostHeaderProps) => {
   const [bellOpen, setBellOpen] = useState(false);
   const { mutate } = usePostPushMutation(postId);
   const { data } = usePostPushQuery(postId);
+  const { flutterBack } = useFlutterStore((state) => state.actions);
   const hasPush = data.results.some(
     (schedule) => schedule.isPushAlarmRegistered
   );
@@ -29,17 +32,14 @@ const PostHeader = ({ postTitle, tags }: PostHeaderProps) => {
       <div className="h-16"></div>
       <div className="px-8 pb-2 fixed top-0 bg-white border-b border-gray-300 w-screen z-50">
         <div className="relative">
-          <div className="flex items-center gap-3 text-white text-xs">
-            {tags.map((tag, index) => (
-              <span
-                className={cn("py-0.5 px-1.5 rounded", bageColors[index % 3])}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div className="flex justify-between gap-2">
-            <h1>{postTitle}</h1>
+          <div className="flex justify-between items-center gap-2 -ml-6">
+            <button
+              className="p-2 h-8 flex items-center justify-center"
+              onClick={flutterBack}
+            >
+              <LeftArrowIcon />
+            </button>
+            <h1 className="flex-1">{postTitle}</h1>
             <button
               className="p-2 h-8 w-8 flex items-center justify-center"
               onClick={() => setBellOpen((prev) => !prev)}
@@ -76,6 +76,15 @@ const PostHeader = ({ postTitle, tags }: PostHeaderProps) => {
                 ))}
               </div>
             )}
+          </div>
+          <div className="flex gap-3 text-white text-xs ml-6 mt-1">
+            {tags.map((tag, index) => (
+              <span
+                className={cn("py-0.5 px-1.5 rounded", bageColors[index % 3])}
+              >
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
       </div>

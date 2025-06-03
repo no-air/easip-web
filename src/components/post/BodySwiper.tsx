@@ -29,7 +29,7 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
           houseName,
         }) => (
           <SwiperSlide
-            className="flex flex-col gap-4 px-[calc(20px+5vw)] [&>div]:border-b [&>div]:border-gray-300 [&>div]:-mx-10 [&>div]:px-8"
+            className="flex flex-col gap-4 px-[calc(20px+5vw)] [&>div]:border-b [&>div]:border-gray-300 [&>div]:-mx-10 [&>div]:px-8 [&>div]:last:border-none"
             key={houseId}
           >
             <div className="flex justify-between items-baseline gap-2">
