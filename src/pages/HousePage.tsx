@@ -3,6 +3,7 @@ import { useHouseDetailQuery } from "../hooks/query/houses";
 import Header from "../components/common/Header";
 import HouseImageSwiper from "../components/house/ImageSwiper";
 import HouseContent from "../components/house/Content";
+import BookMark from "../components/house/Bookmark";
 
 const HousePage = () => {
   const { houseId } = useParams<{ houseId: string }>();
@@ -13,7 +14,11 @@ const HousePage = () => {
 
   return (
     <main className="flex flex-col min-h-screen relative overflow-x-hidden">
-      <Header title={data.houseName} tags={data.tags} rightHeader={<></>} />
+      <Header
+        title={data.houseName}
+        tags={data.tags}
+        rightHeader={<BookMark />}
+      />
       <div className="mt-4">
         <HouseImageSwiper
           images={data.houseThumbnailUrl.map((src) => ({
