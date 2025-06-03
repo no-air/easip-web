@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import { useHouseDetailQuery } from "../hooks/query/houses";
 import Header from "../components/common/Header";
+import HouseImageSwiper from "../components/house/ImageSwiper";
 
 const HousePage = () => {
   const { houseId } = useParams<{ houseId: string }>();
@@ -9,11 +10,17 @@ const HousePage = () => {
   }
   const { data } = useHouseDetailQuery(houseId);
 
-  console.log("House Data:", data);
-
   return (
     <main className="flex flex-col min-h-screen relative">
       <Header title={data.houseName} tags={data.tags} rightHeader={<></>} />
+      <div>
+        <HouseImageSwiper
+          images={data.houseThumbnailUrl.map((url) => ({
+            url,
+            alt: data.houseName,
+          }))}
+        />
+      </div>
     </main>
   );
 };
