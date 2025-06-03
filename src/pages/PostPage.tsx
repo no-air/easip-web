@@ -1,11 +1,12 @@
 import { useParams } from "react-router";
 import { usePostDetailQuery } from "../hooks/query/posts";
 import { useFlutterStore } from "../stores/flutter";
-import PostHeader from "../components/post/Header";
+import Header from "../components/common/Header";
 import ImageSwiper from "../components/post/ImageSwiper";
 import BodySwiper from "../components/post/BodySwiper";
 import type { Swiper as SwiperType } from "swiper";
 import { useState } from "react";
+import PostNoticeBell from "../components/post/Bell";
 
 const PostPage = () => {
   const { postId } = useParams();
@@ -18,7 +19,11 @@ const PostPage = () => {
   const [bodySwiper, setBodySwiper] = useState<SwiperType | null>(null);
   return (
     <main className="flex flex-col min-h-screen relative">
-      <PostHeader postTitle={data.postTitle} tags={data.tags} />
+      <Header
+        postTitle={data.postTitle}
+        tags={data.tags}
+        rightHeader={<PostNoticeBell />}
+      />
       <div className="relative">
         <ImageSwiper
           page={data}
