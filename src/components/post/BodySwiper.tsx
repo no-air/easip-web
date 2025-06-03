@@ -4,6 +4,7 @@ import type { Swiper as SwiperType } from "swiper";
 import type { GetPostDetailResponse } from "../../apis/dtos/posts";
 import ConditionsRow from "../common";
 import { formatDate } from "../../utils/date";
+import { useFlutterStore } from "../../stores/flutter";
 
 interface BodySwiperProps {
   setBodySwiper: (swiper: SwiperType) => void;
@@ -12,6 +13,8 @@ interface BodySwiperProps {
 }
 
 const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
+  const { goToFlutterMove } = useFlutterStore((state) => state.actions);
+
   return (
     <Swiper
       className="text-[#1C1C1C] mt-4"
@@ -34,7 +37,10 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
           >
             <div className="flex justify-between items-baseline gap-2">
               <h2 className="font-semibold mb-4">{houseName}</h2>
-              <button className="text-xs py-1 px-2 bg-[#2F82F4] text-white rounded font-normal min-w-fit">
+              <button
+                className="text-xs py-1 px-2 bg-[#2F82F4] text-white rounded font-normal min-w-fit"
+                onClick={() => goToFlutterMove(`/house/${houseId}`)}
+              >
                 주택 보러가기
               </button>
             </div>
