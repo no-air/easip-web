@@ -2,8 +2,8 @@ import { Controller } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import type { GetPostHomeResponse } from "../../apis/dtos/posts";
-import { formatDate } from "../../util/date";
-import { cn } from "../../util/lib";
+import { formatDate } from "../../utils/date";
+import ConditionsRow from "../common";
 
 interface BodySwiperProps {
   setBodySwiper: (swiper: SwiperType) => void;
@@ -64,48 +64,15 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
                 <div>{formatDate(scheduleDtos[1].end)}</div>
               </div>
             </div>
-            <ConditionsRow houseSummaryResponses={houseSummaryResponses} />
+            <ConditionsRow
+              applicationConditionDtos={
+                houseSummaryResponses[0].applicationConditionDtos
+              }
+            />
           </SwiperSlide>
         )
       )}
     </Swiper>
-  );
-};
-
-interface ConditionsRowProps {
-  houseSummaryResponses: GetPostHomeResponse["results"][number]["houseSummaryResponses"];
-}
-
-const ConditionsRow = ({ houseSummaryResponses }: ConditionsRowProps) => {
-  return (
-    <div className="flex flex-col mt-5 gap-2">
-      <div className="flex gap-4 items-baseline">
-        <span>지원조건</span>
-        <span className="text-sm before:w-2 before:h-2 before:bg-[#2F82F4] before:inline-block before:mr-1">
-          해당
-        </span>
-        <span className="text-sm before:w-2 before:h-2 before:bg-[#E2E2E2] before:inline-block before:mr-1">
-          비해당
-        </span>
-      </div>
-      <div className="flex gap-2 flex-wrap">
-        {houseSummaryResponses[0].applicationConditionDtos
-          .sort((a, b) => (a.isApplicable ? -1 : b.isApplicable ? 1 : 0))
-          .map(({ content, isApplicable }) => (
-            <div
-              className={cn(
-                "px-4 py-1.5 rounded text-xs",
-                isApplicable
-                  ? "bg-[#2F82F4] text-white"
-                  : "bg-[#E2E2E2] text-[#868686]"
-              )}
-              key={content}
-            >
-              {content}
-            </div>
-          ))}
-      </div>
-    </div>
   );
 };
 

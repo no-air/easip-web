@@ -7,24 +7,63 @@ export interface GetPostHomeResponse {
     postId: string;
     title: string;
     tags: string[];
-    houseSummaryResponses: houseSummaryResponse[];
-    scheduleDtos: scheduleDto[];
+    houseSummaryResponses: HouseSummaryResponse[];
+    scheduleDtos: ScheduleDto[];
   }[];
 }
 
-interface houseSummaryResponse {
+export interface GetPostDetailResponse {
+  postId: string;
+  postTitle: string;
+  tags: string[];
+  postPerHouseDetailResponses: PostPerHouseDetailResponse[];
+}
+
+export interface PostPushResponse {
+  results: ScheduleDto[];
+}
+
+interface PostPerHouseDetailResponse {
+  houseId: string;
+  houseName: string;
+  houseThumbnailUrl: string;
+  houseAddress: string;
+  representativeDeposit: number;
+  representativeMonthlyRent: number;
+  representativeManagementFee: number;
+  representativeStructure: string;
+  representativeExclusiveArea: number;
+  totalSupplyRoomCount: number;
+  applicationConditionDtos: ApplicationConditionDto[];
+  scheduleDtos: ScheduleDto[];
+  roomRentalConditionResponses: RoomRentalConditionResponse[];
+  houseApplyUrl: string;
+}
+
+interface RoomRentalConditionResponse {
+  supplyType: string;
+  livingType: string;
+  exclusiveArea: number;
+  supplyRoomCount: number;
+  minRatioDeposit: number;
+  minRatioMonthlyRent: number;
+  maxRatioDeposit: number;
+  maxRatioMonthlyRent: number;
+}
+
+interface HouseSummaryResponse {
   houseId: string;
   houseThumbnailUrl: string;
   houseName: string;
   subscriptionState: string;
-  applicationConditionDtos: applicationConditionDto[];
-  rentDtos: rentDto[];
+  applicationConditionDtos: ApplicationConditionDto[];
+  rentDtos: RentDto[];
   districtName: string;
   latitude: number;
   longitude: number;
 }
 
-interface applicationConditionDto {
+interface ApplicationConditionDto {
   content:
     | "청년"
     | "신혼부부"
@@ -33,12 +72,12 @@ interface applicationConditionDto {
   isApplicable: boolean;
 }
 
-interface rentDto {
+interface RentDto {
   deposit: number;
   monthlyRent: number;
 }
 
-interface scheduleDto {
+interface ScheduleDto {
   id: string;
   title: string;
   start: string;
