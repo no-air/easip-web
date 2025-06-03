@@ -1,21 +1,16 @@
 import { cn } from "../../utils/lib";
-import { useParams } from "react-router";
 import LeftArrowIcon from "../icons/LeftArrow";
 import { useFlutterStore } from "../../stores/flutter";
 
 interface HeaderProps {
   tags: string[];
-  postTitle: string;
+  title: string;
   rightHeader?: React.ReactNode;
 }
 
 const bageColors = ["bg-[#EC4C24]", "bg-[#2492EC]", "bg-[#EA7E11]"];
 
-const Header = ({ postTitle, tags, rightHeader }: HeaderProps) => {
-  const { postId } = useParams();
-  if (!postId) {
-    throw new Error("Post ID is required");
-  }
+const Header = ({ title, tags, rightHeader }: HeaderProps) => {
   const { flutterBack } = useFlutterStore((state) => state.actions);
 
   return (
@@ -30,13 +25,14 @@ const Header = ({ postTitle, tags, rightHeader }: HeaderProps) => {
             >
               <LeftArrowIcon />
             </button>
-            <h1 className="flex-1">{postTitle}</h1>
+            <h1 className="flex-1">{title}</h1>
             {rightHeader}
           </div>
           <div className="flex gap-3 text-white text-xs ml-6 mt-1">
             {tags.map((tag, index) => (
               <span
                 className={cn("py-0.5 px-1.5 rounded", bageColors[index % 3])}
+                key={tag}
               >
                 {tag}
               </span>

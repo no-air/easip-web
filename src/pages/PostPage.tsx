@@ -20,7 +20,7 @@ const PostPage = () => {
   return (
     <main className="flex flex-col min-h-screen relative">
       <Header
-        postTitle={data.postTitle}
+        title={data.postTitle}
         tags={data.tags}
         rightHeader={<PostNoticeBell />}
       />

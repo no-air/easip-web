@@ -13,7 +13,7 @@ export interface HouseResponse {
   generalSupplyRoomInfos: GeneralSupplyRoomInfo[];
   specialSupplyCount: 100;
   specialSupplyRoomInfos: SpecialSupplyRoomInfo[];
-  floorPlanPictures: "https://soco.seoul.go.kr/cohome/cmmn/file/fileDown.do?atchFileId=356f0ab9e20e42f88b4c06e1c18e46ad&fileSn=12";
+  floorPlanPictures: string[];
   latitude: number;
   longitude: number;
 }
