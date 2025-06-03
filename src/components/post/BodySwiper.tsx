@@ -23,6 +23,7 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
       onSwiper={setBodySwiper}
       modules={[Controller]}
       controller={{ control: imageSwiper }}
+      noSwipingClass="no-swiping"
     >
       {page.postPerHouseDetailResponses.map(
         ({
@@ -91,7 +92,7 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
                   <div className="text-xs text-[#A0A0A0] mb-1">
                     주택형(Type)별 임대조건
                   </div>
-                  <div className="overflow-auto">
+                  <div className="no-swiping">
                     <Table
                       ths={[
                         "공급유형",
