@@ -24,8 +24,8 @@ const ImageSwiper = ({
       controller={{ control: bodySwiper }}
     >
       {page.postPerHouseDetailResponses.map(
-        ({ houseThumbnailUrl, houseName }) => (
-          <SwiperSlide className="flex flex-col gap-4" key={houseThumbnailUrl}>
+        ({ houseThumbnailUrl, houseName }, index) => (
+          <SwiperSlide className="flex flex-col gap-4" key={index}>
             <img
               className="mt-8 w-full aspect-square object-cover rounded-lg bg-gray-100 shadow-[0_4px_15px_rgba(0,0,0,0.12)]"
               src={houseThumbnailUrl}

@@ -4,6 +4,7 @@ declare global {
   interface Window {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     kakao: any;
+    accessToken: string;
     flutter_inappwebview: {
       callHandler: (
         handlerName: string,
