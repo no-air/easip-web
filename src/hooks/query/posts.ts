@@ -10,6 +10,8 @@ import {
   getPostsHome,
   putPostPush,
 } from "../../apis/posts";
+import { HttpError } from "../../utils/https";
+import { toast } from "sonner";
 
 export const usePostHomeQuery = () => {
   return useSuspenseInfiniteQuery({
@@ -20,6 +22,7 @@ export const usePostHomeQuery = () => {
       const nextPage = allPages.length;
       return lastPage.hasNext ? nextPage : undefined;
     },
+    retry: false,
   });
 };
 
@@ -27,6 +30,7 @@ export const usePostDetailQuery = (postId: string) => {
   return useSuspenseQuery({
     queryKey: ["posts", postId],
     queryFn: () => getPostById(postId),
+    retry: false,
   });
 };
 
@@ -34,6 +38,7 @@ export const usePostPushQuery = (postId: string) => {
   return useSuspenseQuery({
     queryKey: ["posts", postId, "push"],
     queryFn: () => getPostPush(postId),
+    retry: false,
   });
 };
 
@@ -47,6 +52,15 @@ export const usePostPushMutation = (postId: string) => {
       queryClient.invalidateQueries({
         queryKey: ["posts", postId, "push"],
       });
+    },
+    onError: (error) => {
+      if (error instanceof HttpError) {
+        if (error.error?.type === "ALERT") {
+          alert(error.error.message);
+        } else if (error.error?.type === "TOAST") {
+          toast.error(error.error.message);
+        }
+      }
     },
   });
 };
