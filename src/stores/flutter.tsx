@@ -8,7 +8,7 @@ interface FlutterActions {
 export const useFlutterStore = create<{ actions: FlutterActions }>(() => ({
   actions: {
     goToFlutterMove: async (url, query) => {
-      if (!window.flutter_inappwebview || !window.flutter) {
+      if (!window.flutter_inappwebview) {
         console.warn("Flutter is not enabled.");
         if (import.meta.env.DEV) {
           window.location.href =
@@ -20,7 +20,7 @@ export const useFlutterStore = create<{ actions: FlutterActions }>(() => ({
       await window.flutter_inappwebview.callHandler("goToPage", url, query);
     },
     flutterBack: async () => {
-      if (!window.flutter_inappwebview || !window.flutter) {
+      if (!window.flutter_inappwebview) {
         console.warn("Flutter is not enabled.");
         window.history.back();
         return;

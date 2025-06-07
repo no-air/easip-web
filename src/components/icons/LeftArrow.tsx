@@ -10,9 +10,9 @@ const LeftArrowIcon = () => {
       <path
         d="M15.3398 5.57031L9.33984 12.5703L15.3398 19.5703"
         stroke="#1C274C"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

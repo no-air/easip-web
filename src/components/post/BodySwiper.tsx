@@ -4,6 +4,8 @@ import type { Swiper as SwiperType } from "swiper";
 import type { GetPostDetailResponse } from "../../apis/dtos/posts";
 import ConditionsRow from "../common";
 import { formatDate } from "../../utils/date";
+import { useFlutterStore } from "../../stores/flutter";
+import Table from "../common/Table";
 
 interface BodySwiperProps {
   setBodySwiper: (swiper: SwiperType) => void;
@@ -12,6 +14,8 @@ interface BodySwiperProps {
 }
 
 const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
+  const { goToFlutterMove } = useFlutterStore((state) => state.actions);
+
   return (
     <Swiper
       className="text-[#1C1C1C] mt-4"
@@ -19,6 +23,7 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
       onSwiper={setBodySwiper}
       modules={[Controller]}
       controller={{ control: imageSwiper }}
+      noSwipingClass="no-swiping"
     >
       {page.postPerHouseDetailResponses.map(
         ({
@@ -34,7 +39,10 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
           >
             <div className="flex justify-between items-baseline gap-2">
               <h2 className="font-semibold mb-4">{houseName}</h2>
-              <button className="text-xs py-1 px-2 bg-[#2F82F4] text-white rounded font-normal min-w-fit">
+              <button
+                className="text-xs py-1 px-2 bg-[#2F82F4] text-white rounded font-normal min-w-fit"
+                onClick={() => goToFlutterMove(`/house/${houseId}`)}
+              >
                 주택 보러가기
               </button>
             </div>
@@ -84,49 +92,42 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
                   <div className="text-xs text-[#A0A0A0] mb-1">
                     주택형(Type)별 임대조건
                   </div>
-                  <div className="overflow-auto">
-                    <table className="w-full">
-                      <thead className="text-[#767676] text-xs bg-[#CFCFCF] [&_th]:py-1 [&_th]:px-2 [&_th]:break-keep border-b border-[#A0A0A0] [&_th]:border-r [&_th]:last:border-none [&_th]:border-[#A0A0A0]">
-                        <tr>
-                          <th>공급유형</th>
-                          <th>주거유형</th>
-                          <th>전용면적</th>
-                          <th>공급호수</th>
-                          <th>최소 보증 비율 보증금</th>
-                          <th>최소 보증 비율 월세</th>
-                          <th>최대 보증 비율 월세</th>
-                          <th>최대 보증 비율 월세</th>
-                        </tr>
-                      </thead>
-                      <tbody className="text-xs font-medium bg-[#F9F9F9] [&_td]:py-1 [&_td]:px-2 [&_td]:break-keep [&_td]:border-r [&_td]:border-[#CFCFCF] [&_td]:last:border-none text-center">
-                        {page.postPerHouseDetailResponses[0].roomRentalConditionResponses.map(
-                          (
-                            {
-                              exclusiveArea,
-                              livingType,
-                              maxRatioDeposit,
-                              maxRatioMonthlyRent,
-                              minRatioDeposit,
-                              minRatioMonthlyRent,
-                              supplyRoomCount,
-                              supplyType,
-                            },
-                            index
-                          ) => (
-                            <tr key={index}>
-                              <td>{supplyType}</td>
-                              <td>{livingType}</td>
-                              <td>{exclusiveArea}</td>
-                              <td>{supplyRoomCount}</td>
-                              <td>{minRatioDeposit}</td>
-                              <td>{minRatioMonthlyRent}</td>
-                              <td>{maxRatioDeposit}</td>
-                              <td>{maxRatioMonthlyRent}</td>
-                            </tr>
-                          )
-                        )}
-                      </tbody>
-                    </table>
+                  <div className="no-swiping">
+                    <Table
+                      ths={[
+                        "공급유형",
+                        "주거유형",
+                        "전용면적",
+                        "공급호수",
+                        "최소 보증 비율 보증금",
+                        "최소 보증 비율 월세",
+                        "최대 보증 비율 보증금",
+                        "최대 보증 비율 월세",
+                      ]}
+                      tds={[
+                        ...page.postPerHouseDetailResponses[0].roomRentalConditionResponses.map(
+                          ({
+                            exclusiveArea,
+                            livingType,
+                            maxRatioDeposit,
+                            maxRatioMonthlyRent,
+                            minRatioDeposit,
+                            minRatioMonthlyRent,
+                            supplyRoomCount,
+                            supplyType,
+                          }) => [
+                            supplyType,
+                            livingType,
+                            exclusiveArea,
+                            supplyRoomCount,
+                            minRatioDeposit,
+                            minRatioMonthlyRent,
+                            maxRatioDeposit,
+                            maxRatioMonthlyRent,
+                          ]
+                        ),
+                      ]}
+                    />
                   </div>
                 </div>
               </div>
