@@ -105,9 +105,8 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
                         "최대 보증 비율 월세",
                       ]}
                       tds={[
-                        ...page.postPerHouseDetailResponses[0].roomRentalConditionResponses.map(
+                        ...page.postPerHouseDetailResponses[0].postHouseConditionDtos.map(
                           ({
-                            exclusiveArea,
                             livingType,
                             maxRatioDeposit,
                             maxRatioMonthlyRent,
@@ -118,7 +117,6 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
                           }) => [
                             supplyType,
                             livingType,
-                            exclusiveArea,
                             supplyRoomCount,
                             minRatioDeposit,
                             minRatioMonthlyRent,

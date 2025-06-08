@@ -30,20 +30,16 @@ interface PostPerHouseDetailResponse {
   houseAddress: string;
   representativeDeposit: number;
   representativeMonthlyRent: number;
-  representativeManagementFee: number;
-  representativeStructure: string;
-  representativeExclusiveArea: number;
   totalSupplyRoomCount: number;
   applicationConditionDtos: ApplicationConditionDto[];
   scheduleDtos: ScheduleDto[];
-  roomRentalConditionResponses: RoomRentalConditionResponse[];
+  postHouseConditionDtos: RoomRentalConditionResponse[];
   houseApplyUrl: string;
 }
 
 interface RoomRentalConditionResponse {
   supplyType: string;
   livingType: string;
-  exclusiveArea: number;
   supplyRoomCount: number;
   minRatioDeposit: number;
   minRatioMonthlyRent: number;
