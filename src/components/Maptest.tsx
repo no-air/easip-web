@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { loadKakaoScript } from '../utils/loadKakaoScript';
 import { API_URL } from '../constants/api';
-import { accessToken } from "../utils/https";
-import { renderMarkers } from "../utils/map";
+import { accessToken } from '../utils/https';
+import { renderMarkers } from '../utils/map';
 
 const MapTest = () => {
   useEffect(() => {
@@ -10,7 +10,7 @@ const MapTest = () => {
       try {
         await loadKakaoScript();
         window.kakao.maps.load(async () => {
-          const container = document.getElementById("map");
+          const container = document.getElementById('map');
           if (!container) return;
 
           const token = await accessToken();
@@ -18,9 +18,9 @@ const MapTest = () => {
           const res = await fetch(
             `${API_URL}/v1/houses/map?minLatitude=0&minLongitude=0&maxLatitude=90&maxLongitude=180`,
             {
-              method: "GET",
+              method: 'GET',
               headers: {
-                "X-AUTH-TOKEN": token,
+                'X-AUTH-TOKEN': token,
               },
             }
           );
@@ -29,7 +29,7 @@ const MapTest = () => {
           const houses = data.results;
 
           if (!Array.isArray(houses) || houses.length === 0) {
-            console.warn("받은 주택 리스트가 없습니다");
+            console.warn('받은 주택 리스트가 없습니다');
             return;
           }
 
@@ -41,12 +41,12 @@ const MapTest = () => {
 
           const map = new kakao.maps.Map(container, {
             center,
-            level: 3,
+            level: 8,
           });
 
           renderMarkers(map, houses);
 
-          kakao.maps.event.addListener(map, "idle", async () => {
+          kakao.maps.event.addListener(map, 'idle', async () => {
             const bounds = map.getBounds();
             const sw = bounds.getSouthWest();
             const ne = bounds.getNorthEast();
@@ -61,9 +61,9 @@ const MapTest = () => {
             try {
               const token = await accessToken();
               const res = await fetch(`${API_URL}/v1/houses/map?${query}`, {
-                method: "GET",
+                method: 'GET',
                 headers: {
-                  "X-AUTH-TOKEN": token,
+                  'X-AUTH-TOKEN': token,
                 },
               });
 
@@ -73,12 +73,12 @@ const MapTest = () => {
 
               renderMarkers(map, houses);
             } catch (err) {
-              console.error("지도 API 에러:", err);
+              console.error('지도 API 에러:', err);
             }
           });
         });
       } catch (err) {
-        console.error("카카오 지도 로딩 실패:", err);
+        console.error('카카오 지도 로딩 실패:', err);
       }
     };
 
@@ -86,8 +86,8 @@ const MapTest = () => {
   }, []);
 
   return (
-    <div className="w-full h-screen">
-      <div id="map" className="w-full h-full"></div>
+    <div className='w-full h-screen'>
+      <div id='map' className='w-full h-full'></div>
     </div>
   );
 };
