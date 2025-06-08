@@ -35,6 +35,7 @@ const HouseContent = ({ data }: HouseContentProps) => {
           },
         ]);
         map.setDraggable(false);
+        map.setZoomable(false);
       });
     };
     initializeMap();
