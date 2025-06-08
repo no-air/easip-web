@@ -1,13 +1,45 @@
+import { useEffect, useRef } from "react";
 import type { HouseResponse } from "../../apis/dtos/houses";
 import { formatDate } from "../../utils/date";
 import Table from "../common/Table";
 import HouseImageSwiper from "./ImageSwiper";
+import { loadKakaoScript } from "../../utils/loadKakaoScript";
+import { renderMarkers } from "../../utils/map";
 
 interface HouseContentProps {
   data: HouseResponse;
 }
 
 const HouseContent = ({ data }: HouseContentProps) => {
+  const mapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const initializeMap = async () => {
+      await loadKakaoScript();
+      window.kakao.maps.load(async () => {
+        if (!mapRef.current) return;
+        const container = mapRef.current;
+
+        const center = new kakao.maps.LatLng(data.latitude, data.longitude);
+
+        const map = new kakao.maps.Map(container, {
+          center,
+          level: 3,
+        });
+        renderMarkers(map, [
+          {
+            latitude: data.latitude,
+            longitude: data.longitude,
+            houseName: data.houseName,
+            houseId: data.houseId,
+          },
+        ]);
+        map.setDraggable(false);
+      });
+    };
+    initializeMap();
+  }, [data.latitude, data.longitude, data.houseName, data.houseId]);
+
   return (
     <div className="flex flex-col gap-4 py-4 text-sm [&>div]:border-t [&>div]:border-[#A0A0A0] [&>div]:pt-2 [&>div]:px-8 [&>div_span]:text-xs [&>div_span]:text-[#A0A0A0] text-[#1C1C1C]">
       <div>
@@ -100,7 +132,7 @@ const HouseContent = ({ data }: HouseContentProps) => {
       </div>
       <div>
         <div>위치</div>
-        <div>지도</div>
+        <div ref={mapRef} className="w-full h-50 my-2"></div>
       </div>
     </div>
   );
