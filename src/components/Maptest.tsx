@@ -1,11 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { loadKakaoScript } from '../utils/loadKakaoScript';
 import { API_URL } from '../constants/api';
 import { accessToken } from '../apis';
 
 const MapTest = () => {
-  const hasInitialized = useRef(false);
-
   useEffect(() => {
     const initializeMap = async () => {
       try {
@@ -93,7 +91,9 @@ const MapTest = () => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderMarkers = (map: any, houses: any[]) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   houses.forEach((house: any) => {
     const position = new window.kakao.maps.LatLng(
       house.latitude,
