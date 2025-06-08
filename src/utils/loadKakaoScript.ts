@@ -5,8 +5,10 @@ export function loadKakaoScript(): Promise<void> {
       return;
     }
 
+    const apiKey = import.meta.env.VITE_KAKAO_MAP_API_KEY;
+
     const script = document.createElement('script');
-    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=&autoload=false`;
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&autoload=false`;
     script.async = true;
     script.onload = () => {
       if (window.kakao && window.kakao.maps) {
