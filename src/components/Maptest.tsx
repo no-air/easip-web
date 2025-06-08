@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { loadKakaoScript } from '../utils/loadKakaoScript';
 import { API_URL } from '../constants/api';
-import { accessToken } from '../apis';
+import { accessToken } from "../utils/https";
 
 const MapTest = () => {
   useEffect(() => {
