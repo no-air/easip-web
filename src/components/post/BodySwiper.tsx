@@ -6,6 +6,7 @@ import ConditionsRow from "../common";
 import { formatDate } from "../../utils/date";
 import { useFlutterStore } from "../../stores/flutter";
 import Table from "../common/Table";
+import { formatMoneyToKorean } from "../../utils/money";
 
 interface BodySwiperProps {
   setBodySwiper: (swiper: SwiperType) => void;
@@ -49,11 +50,15 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
             <div className="flex justify-between gap-2 py-4">
               <div className="flex-1">
                 <div className="text-xs text-[#A0A0A0]">보증금</div>
-                <div className="font-medium">{representativeDeposit}~</div>
+                <div className="font-medium">
+                  {formatMoneyToKorean(representativeDeposit)}~
+                </div>
               </div>
               <div className="flex-1">
                 <div className="text-xs text-[#A0A0A0]">월세</div>
-                <div className="font-medium">{representativeMonthlyRent}</div>
+                <div className="font-medium">
+                  {formatMoneyToKorean(representativeMonthlyRent)}
+                </div>
               </div>
             </div>
             <div className="py-4">
@@ -86,7 +91,7 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
                         }`}
                       </div>
                     </div>
-                  )
+                  ),
                 )}
                 <div>
                   <div className="text-xs text-[#A0A0A0] mb-1">
@@ -98,7 +103,6 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
                         "공급유형",
                         "주거유형",
                         "전용면적",
-                        "공급호수",
                         "최소 보증 비율 보증금",
                         "최소 보증 비율 월세",
                         "최대 보증 비율 보증금",
@@ -118,11 +122,11 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
                             supplyType,
                             livingType,
                             supplyRoomCount,
-                            minRatioDeposit,
-                            minRatioMonthlyRent,
-                            maxRatioDeposit,
-                            maxRatioMonthlyRent,
-                          ]
+                            formatMoneyToKorean(minRatioDeposit),
+                            formatMoneyToKorean(minRatioMonthlyRent),
+                            formatMoneyToKorean(maxRatioDeposit),
+                            formatMoneyToKorean(maxRatioMonthlyRent),
+                          ],
                         ),
                       ]}
                     />
@@ -131,7 +135,7 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
               </div>
             </div>
           </SwiperSlide>
-        )
+        ),
       )}
     </Swiper>
   );
