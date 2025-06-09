@@ -5,6 +5,7 @@ import Table from "../common/Table";
 import HouseImageSwiper from "./ImageSwiper";
 import { loadKakaoScript } from "../../utils/loadKakaoScript";
 import { renderMarkers } from "../../utils/map";
+import { formatMoneyToKorean } from "../../utils/money";
 
 interface HouseContentProps {
   data: HouseResponse;
@@ -95,9 +96,9 @@ const HouseContent = ({ data }: HouseContentProps) => {
             info.exclusiveArea,
             info.applicationEligibility,
             info.totalRoomCount,
-            info.deposit,
-            info.monthlyRent,
-            info.maintenanceFee,
+            formatMoneyToKorean(info.deposit),
+            formatMoneyToKorean(info.monthlyRent),
+            formatMoneyToKorean(info.maintenanceFee),
           ])}
         />
         <span>특별공급:{data.specialSupplyCount}</span>
@@ -116,9 +117,9 @@ const HouseContent = ({ data }: HouseContentProps) => {
             info.exclusiveArea,
             info.applicationEligibility,
             info.totalRoomCount,
-            info.deposit,
-            info.monthlyRent,
-            info.maintenanceFee,
+            formatMoneyToKorean(info.deposit),
+            formatMoneyToKorean(info.monthlyRent),
+            formatMoneyToKorean(info.maintenanceFee),
           ])}
         />
       </div>
