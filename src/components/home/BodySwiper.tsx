@@ -38,7 +38,7 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
             </div>
             <h2 className="text-lg">{title}</h2>
             {/* placeholder image */}
-            <div className="w-full aspect-square bg-gray100 rounded-lg my-6"></div>
+            <div className="w-full aspect-square bg-gray100 rounded-lg mt-6 mb-12"></div>
             <h2 className="font-semibold mb-4">
               {houseSummaryResponses[0].houseName}
             </h2>
@@ -70,7 +70,7 @@ const BodySwiper = ({ setBodySwiper, imageSwiper, page }: BodySwiperProps) => {
               }
             />
           </SwiperSlide>
-        )
+        ),
       )}
     </Swiper>
   );
